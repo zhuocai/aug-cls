@@ -9,5 +9,5 @@ done
 
 for j in 1 2
 do
-  python main.py --epochs 100 --tmax 100 --transform $i --task $j --root_dir $data_folder
+  python main.py --epochs 100 --tmax 100 --transform $i --task 1 --root_dir $data_folder
 done
