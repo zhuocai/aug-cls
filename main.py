@@ -55,7 +55,9 @@ test_x = test_x.reshape(test_num, 3, 32, 32) / 255.0
 train_label = pd.read_csv(osp.join(root_dir, 'train%d.csv' % args.task)).to_numpy()[:, 1].astype(int).ravel()
 num_classes = 20 if args.task == 1 else 100
 label_name = 'coarse' if args.task == 1 else 'fine'
-log_name = label_name + '_%d' % args.transformation
+log_name = label_name + '_%d' % args.transform
+
+print(args)
 
 mean = np.array([0.4914, 0.4822, 0.4465])
 std = np.array([0.2023, 0.1994, 0.2010])
@@ -91,6 +93,7 @@ test_loader = DataLoader(testset, shuffle=False,
                          batch_size=batch_size, num_workers=2, pin_memory=True)
 
 model = resnet.ResNet18(num_channels=3, num_classes=num_classes)
+model = model.to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.SGD(model.parameters(), lr=args.lr,
                       momentum=0.9, weight_decay=5e-4)

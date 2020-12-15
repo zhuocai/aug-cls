@@ -17,6 +17,7 @@ if torch.__version__ >= '1.4.0':
 else:
     kwargs = {}
 
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 def rgb2hsv(rgb):
     """Convert a 4-d RGB tensor to the HSV counterpart.
@@ -431,15 +432,16 @@ class NormalizeLayer(nn.Module):
     def forward(self, inputs):
         return (inputs - 0.5) / 0.5
 
+color_jitter = ColorJitterLayer(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1, p=0.8).to(device)
+color_gray = RandomColorGrayLayer(p=0.2).to(device)
+resize_crop = RandomResizedCropLayer(size=(32, 32)).to(device)
+
+rotation = Rotation().to(device)
+cut_perm = CutPerm().to(device)
+
+
 
 def transform(inputs: torch.Tensor, tr_type: int) -> torch.Tensor:
-    color_jitter = ColorJitterLayer(brightness=0.4, contrast=0.4, saturation=0.4, hue=0.1, p=0.8)
-    color_gray = RandomColorGrayLayer(p=0.2)
-    resize_crop = RandomResizedCropLayer(size=(32, 32))
-
-    rotation = Rotation()
-    cut_perm = CutPerm()
-
     if tr_type == 1:
         # color_jitter + color_gray + resize_crop
         out = color_jitter(inputs)

@@ -1,4 +1,4 @@
-data_folder=../../data/q1_data
+data_folder=../q1_data
 for i in 2 3 4 5
 do
   for j in 1 2
