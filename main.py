@@ -150,7 +150,7 @@ def val(epoch):
             total += targets.size(0)
             correct += predicted.eq(targets).sum().item()
 
-        val_bar.set_postfix_str('Loss: %.4f | Acc: %.4f (%d/%d)'
+            val_bar.set_postfix_str('Loss: %.4f | Acc: %.4f (%d/%d)'
                                 % (val_loss / (batch_idx + 1), correct / total, correct, total))
     val_accs.append(100. * correct / total)
 
