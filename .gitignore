@@ -1,0 +1,26 @@
+*.pth
+
+# Byte-compiled / optimized / DLL files
+**/__pycache__/
+
+*.py[cod]
+
+**/.DS_Store
+**/.idea
+*.pyc
+*.pyo
+.installed.cfg
+bin
+develop-eggs
+dist
+downloads
+eggs
+parts
+src/*.egg-info
+lib
+lib64
+
+*.swp
+
+
+
